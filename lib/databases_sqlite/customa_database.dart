@@ -1,4 +1,4 @@
-import 'package:mi_trabajo/models/custon_activity_model.dart';
+import 'package:mi_trabajo/models/database_models.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -36,6 +36,17 @@ class CustomADatabase {
         ${CustomActivityField.color} TEXT NO NULL
         )
       ''');
+    await db.execute('''
+            CREATE TABLE $tableActivityData(
+        ${ActivityField.activityId} INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${ActivityField.activityType} TEXT NO NULL,
+        ${ActivityField.date} TEXT NO NULL,
+        ${ActivityField.details} TEXT NO NULL,
+        ${ActivityField.price} REAL NO NULL,
+        ${ActivityField.quantity} INTEGER NO NULL,
+        ${ActivityField.state} TEXT NO NULL
+        )
+      ''');
   }
 
   Future<String> addCustomActivity(CustomActivityModel customA) async {
@@ -59,6 +70,12 @@ class CustomADatabase {
     }
   }
 
+  Future<void> addActivity(ActivityModel activity) async {
+    final db = await instance.database;
+    await db.insert(tableActivityData, activity.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.fail);
+  }
+
   Future<List<CustomActivityModel>> getAllCustomA() async {
     final db = await instance.database;
     final results = await db.query(tableCustomActity);
@@ -68,11 +85,25 @@ class CustomADatabase {
         .toList();
   }
 
+  Future<List<ActivityModel>> getActivities() async {
+    final db = await instance.database;
+    final results = await db.query(tableActivityData);
+    return results
+        .map((mapActivities) => ActivityModel.fromJson(mapActivities))
+        .toList();
+  }
+
   Future<void> deleteCustomA(String nameActivity) async {
     final db = await instance.database;
     await db.delete(tableCustomActity,
         where: '${CustomActivityField.nameActivity} = ?',
         whereArgs: [nameActivity]);
+  }
+
+  Future<void> deleteActivity(String activityId) async {
+    final db = await instance.database;
+    await db.delete(tableActivityData,
+        where: '${ActivityField.activityId} = ?', whereArgs: [activityId]);
   }
 
   // Para cerrar la base de datos.

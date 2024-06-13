@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mi_trabajo/models/custon_activity_model.dart';
+import 'package:mi_trabajo/models/database_models.dart';
 import 'package:mi_trabajo/utils/colors.dart';
 import 'package:mi_trabajo/utils/dimensions.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:mi_trabajo/databases_sqlite/customa_database.dart';
+import 'package:mi_trabajo/models/database_models.dart';
 import 'package:mi_trabajo/screens/add_activity_screen.dart';
 import 'package:mi_trabajo/screens/edit_activity_screen.dart';
 import 'package:mi_trabajo/utils/colors.dart';
@@ -86,7 +88,43 @@ class ActivityScreenUI extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          ListActivitys(filter: filter),
+          Expanded(
+            child: FutureBuilder(
+                future: CustomADatabase.instance.getActivities(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: LoadingAnimationWidget.fourRotatingDots(
+                          color: Colores.azul, size: 40),
+                    );
+                  }
+                  if (snapshot.hasError) {
+                    return Text("Error ${snapshot.error}");
+                  }
+                  List<ActivityModel>? activityModel = snapshot.data!;
+
+                  return snapshot.hasData
+                      ? activityModel.isEmpty
+                          ? const Text("no hay data")
+                          : ListView.builder(
+                              itemCount: activityModel.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  title:
+                                      Text(activityModel[index].activityType),
+
+                                  // Agrega más widgets para mostrar otros datos del modelo de actividad
+                                );
+                              },
+                            )
+                      //Text(activityModel.length.toString())
+                      : Center(
+                          child: LoadingAnimationWidget.fourRotatingDots(
+                              color: Colors.blue, size: 30),
+                        );
+                }),
+          ),
+          //ListActivitys(filter: filter),
         ],
       ),
     );

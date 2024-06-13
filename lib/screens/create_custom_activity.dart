@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/IconPicker/icons.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:mi_trabajo/databases_sqlite/customa_database.dart';
-import 'package:mi_trabajo/models/custon_activity_model.dart';
+import 'package:mi_trabajo/models/database_models.dart';
 import 'package:mi_trabajo/services/navigation_service.dart';
 import 'package:mi_trabajo/services/snackbar_service.dart';
 import 'package:mi_trabajo/utils/colors.dart';

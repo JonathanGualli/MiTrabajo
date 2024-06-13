@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/IconPicker/icons.dart';
-import 'package:mi_trabajo/models/custon_activity_model.dart';
+import 'package:mi_trabajo/models/database_models.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mi_trabajo/databases_sqlite/customa_database.dart';
 import 'package:mi_trabajo/screens/activisys_screen.dart';
@@ -249,14 +249,14 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Dimensions.screenHeight * 0.08,
+      //height: Dimensions.screenHeight * 0.08,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Padding(
             padding: EdgeInsets.only(right: Dimensions.screenWidth * 0.04),
             child: CircleAvatar(
-              radius: (Dimensions.screenHeight * 0.08) / 2,
+              radius: (Dimensions.screenHeight * 0.085) / 2,
               backgroundColor: Colors.white,
               backgroundImage: NetworkImage(userData!.image),
             ),

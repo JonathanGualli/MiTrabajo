@@ -81,3 +81,90 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+ 
+/* 
+import 'package:flutter/material.dart';
+import 'package:mi_trabajo/databases_sqlite/customa_database.dart';
+import 'package:mi_trabajo/models/database_models.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Mi Trabajo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: ActividadesScreen(),
+    );
+  }
+}
+
+class ActividadesScreen extends StatefulWidget {
+  @override
+  _ActividadesScreenState createState() => _ActividadesScreenState();
+}
+
+class _ActividadesScreenState extends State<ActividadesScreen> {
+  List<ActivityModel> activities = [];
+
+  @override
+  void initState() {
+    super.initState();
+    cargarDatos(); // Carga los datos al iniciar la pantalla
+  }
+
+  Future<void> cargarDatos() async {
+    // Obtén todas las actividades de la base de datos
+    activities = await CustomADatabase.instance.getActivities();
+    setState(() {}); // Actualiza la pantalla después de cargar los datos
+  }
+
+  Future<void> agregarActividad() async {
+    // Crea una nueva actividad
+    ActivityModel nuevaActividad = ActivityModel.noID(
+// ID autoincremental, se llenará automáticamente
+        DateTime.now().day.toString(), // Fecha actual
+        'Tipo de actividad', // Tipo de actividad
+        'Detalles de la actividad', // Detalles de la actividad
+        10.0, // Precio
+        1, // Cantidad
+        'Estado'); // Estado
+
+    // Agrega la nueva actividad a la base de datos
+    await CustomADatabase.instance.addActivity(nuevaActividad);
+
+    // Vuelve a cargar los datos para reflejar los cambios en la pantalla
+    await cargarDatos();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Actividades'),
+      ),
+      body: ListView.builder(
+        itemCount: activities.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(activities[index].activityType),
+            subtitle: Text(
+                'Detalles: ${activities[index].details}, Precio: ${activities[index].price.toString()}, id" ${activities[index].activityId.toString()}'),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed:
+            agregarActividad, // Agregar una nueva actividad al presionar el botón de acción flotante
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+ */
